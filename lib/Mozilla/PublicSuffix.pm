@@ -36,13 +36,10 @@ sub public_suffix {
 			: do {
 				my @exc_rules = grep { $_->{type} eq "e" } @matches;
 				@exc_rules > 0
-					? do {
-						@exc_rules == 1
-							? undef
-							: do {
-								# Recheck with left-mode label chopped off
-								@_ = $exc_rules[0]{label} =~ /^[^.]+\.(.*)$/;
-								goto &public_suffix; } }
+					? @exc_rules == 1
+						? undef
+						# Recheck with left-mode label chopped off
+						: public_suffix($exc_rules[0]{label} =~ /^[^.]+\.(.*)$/)
 					: do {
 						my ($type, $label) = @{$matches[0]}{qw(type label)};
 						$type eq "w"
