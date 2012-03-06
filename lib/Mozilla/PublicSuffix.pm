@@ -22,13 +22,12 @@ sub public_suffix {
 
 	# Gather matching rules:
 	my @labels = split /\./, $domain;
-	my @matches = sort { $b->{label} =~ /\./g <=> $a->{label} =~ /\./g }
+	my @matches = sort { $b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
 		map {
 			my $label = join ".", @labels[ $_ .. $#labels ];
 			exists $rules{$label}
-				? { type  => $rules{$label}, label => $label }
-					: ();
-		} 0 .. $#labels;
+				? { type => $rules{$label}, label => $label }
+				: (); } 0 .. $#labels;
 
 	# Choose prevailing rule and return suffix, if one is to be found:
 	return do {
