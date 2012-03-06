@@ -8,17 +8,31 @@ use HTTP::Tiny;
 use Module::Build;
 use Tie::File;
 
+my $builder = Module::Build->new(
+	dist_name => "Mozilla-PublicSuffix",
+	license => "LGPL_3_0",
+	dist_abstract => q(Get a domain name's public suffix via Mozilla's Public Suffix List),
+	dist_author => q"Richard Simões <rsimoes AT cpan DOT org>",
+	dist_version_from => "lib/Mozilla/PublicSuffix.pm",
+	# Prerequisites inserted by DistZilla:
+	##{ $plugin->get_prereqs ##}
+   );
+
 my $DAT = "effective_tld_names.dat";
-if ( -M $DAT > 30 ) {
-	my $http = HTTP::Tiny->new( timeout => 6 );
-	my $list_uri = "http://mxr.mozilla.org"
-				 . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
-	my %options = (
-		headers => {
-			"If-Modified-Since" => "Wed, 22 Feb 2012 16:00:41 GMT" } );
-	my $response = $http->get( $list_uri, \%options );
-	$response->{status} == 200
-		and IO::File->new($DAT, "w")->print( $response->{content} ); }
+-M $DAT > 30 and do {
+	$builder->y_n(
+	"Check for a new version of the Public Suffix List?", "Y" )
+		and do {
+			my $http = HTTP::Tiny->new( timeout => 6 );
+			my $list_uri = "http://mxr.mozilla.org"
+				. "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
+			my %options = (
+				headers => {
+					"If-Modified-Since" => "Wed, 22 Feb 2012 16:00:41 GMT" } );
+			my $response = $http->get( $list_uri, \%options );
+			$response->{status} == 200
+				and IO::File->new($DAT, "w")->print(
+					$response->{content} ); } };
 
 # Divide rules from list into sets:
 my $rules = join " ", map {
@@ -33,12 +47,4 @@ tie my @pm, "Tie::File", "lib/Mozilla/PublicSuffix.pm";
 for (@pm) { s/(my %rules = qw\()/$1$rules/ and last }
 untie @pm;
 
-my $builder = Module::Build->new(
-	dist_name => "Mozilla-PublicSuffix",
-	license => "LGPL_3_0",
-	dist_abstract => q(Get a domain name's "public suffix" via Mozilla's Public Suffix List),
-	dist_author => q"Richard Simões <rsimoes AT cpan DOT org>",
-	dist_version_from => "lib/Mozilla/PublicSuffix.pm",
-	# Prerequisites inserted by DistZilla:
-	##{ $plugin->get_prereqs ##}
-   )->create_build_script;
+$builder->create_build_script;
