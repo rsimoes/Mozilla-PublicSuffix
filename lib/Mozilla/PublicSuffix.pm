@@ -24,7 +24,7 @@ sub public_suffix {
 	my @labels = split /\./, $domain;
 	my @matches = sort { $b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
 		map {
-			my $label = join ".", @labels[ $_ .. $#labels ];
+			my $label = $_ == 0 ? $domain : join ".", @labels[ $_ .. $#labels ];
 			exists $rules{$label}
 				? { type => $rules{$label}, label => $label }
 				: (); } 0 .. $#labels;
