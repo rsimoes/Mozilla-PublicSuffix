@@ -21,8 +21,8 @@ This module provides a single function that returns the I<public suffix> of a
 domain name by referencing a parsed copy of Mozilla's Public Suffix List
 (official website at L<http://publicsuffix.org>). The algorithm is not the one
 prescribed on Mozilla's website, but a robust test battery included in this
-distribution should provide sufficient evidence that the one used in its placed
-is an acceptable substitute.
+distribution suggests that the one used in its placed is an efficient
+substitute.
 
 A copy of the official list is bundled with the distribution. As the official
 list continues to be updated, the bundled copy will inevitably fall out of date.
@@ -34,7 +34,7 @@ list and download/use it if one is found.
 
 =over
 
-=item public_suffix
+=item public_suffix($domain)
 
 Exported on request. Simply returns the public suffix of the passed argument,
 or C<undef> if the public suffix is not found. Croaks if the passed argument
