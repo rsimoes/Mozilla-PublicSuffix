@@ -26,7 +26,7 @@ sub public_suffix {
 			my @matches = sort {
 				$b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
 				map {
-					my $label = !$_ ? $domain : join ".", @labels[$_..$#labels];
+					my $label = $_ ? join ".", @labels[$_..$#labels] : $domain;
 					exists $rules{$label}
 						? { type => $rules{$label}, label => $label }
 						: () } 0 .. $#labels;
