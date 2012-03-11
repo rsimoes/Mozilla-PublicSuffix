@@ -4,8 +4,9 @@ use strict;
 use warnings FATAL => "all";
 use utf8;
 use parent "Exporter";
-use Carp ();
-use Net::LibIDN qw(idn_prep_name idn_to_ascii idn_to_unicode);
+use Carp;
+use Net::LibIDN qw(idn_to_ascii idn_to_unicode);
+
 our @EXPORT_OK = qw(public_suffix);
 
 # VERSION
@@ -16,8 +17,8 @@ sub public_suffix {
 	my ($domain) = @_;
 
 	# Test domain well-formedness:
-	eval { $domain = idn_to_unicode idn_to_ascii idn_prep_name $domain }
-		or Carp::croak("Argument passed is not a well-formed domain name");
+	$domain = eval { idn_to_unicode idn_to_ascii lc $domain }
+		or croak("Argument passed is not a well-formed domain name");
 
 	my @labels = split /\./, $domain;
 	return exists $rules{$labels[-1]}

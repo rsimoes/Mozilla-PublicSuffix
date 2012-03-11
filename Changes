@@ -1,4 +1,5 @@
 {{$NEXT}}
+	- Double speed by using &lc instead of &idn_prep_name
 
 v0.1.0    2012-03-11 15:06:18 America/Chicago
 	- Fixed handling of exception rules.
