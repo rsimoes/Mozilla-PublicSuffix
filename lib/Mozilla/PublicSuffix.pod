@@ -19,10 +19,7 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via Mozilla's Public S
 
 This module provides a single function that returns the I<public suffix> of a
 domain name by referencing a parsed copy of Mozilla's Public Suffix List
-(official website at L<http://publicsuffix.org>). The algorithm is not the one
-prescribed on Mozilla's website, but a robust test battery included in this
-distribution suggests that the one used in its placed is an efficient
-substitute.
+(official website at L<http://publicsuffix.org>).
 
 A copy of the official list is bundled with the distribution. As the official
 list continues to be updated, the bundled copy will inevitably fall out of date.
