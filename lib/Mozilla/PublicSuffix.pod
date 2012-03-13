@@ -33,9 +33,8 @@ list and download/use it if one is found.
 
 =item public_suffix($domain)
 
-Exported on request. Simply returns the public suffix of the passed argument,
-or C<undef> if the public suffix is not found. Croaks if the passed argument
-is not a well-formed domain name.
+Exported on request. Simply returns the public suffix of the passed domain, or
+C<undef> if a public suffix is not found.
 
 =back
 
@@ -45,8 +44,8 @@ is not a well-formed domain name.
 
 =item L<Domain::PublicSuffix>
 
-An alternative to this module, with an object-oriented interface and slightly
-difference interpretation of the rules Mozilla stipulates for determining a
+Similar to this module, with an object-oriented interface and somewhat
+alternative interpretation of the rules Mozilla stipulates for determining a
 public suffix.
 
 =back
@@ -55,7 +54,7 @@ public suffix.
 
 Richard Simões C<< <rsimoes AT cpan DOT org> >>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT & LICENSE
 
 Copyright © 2012 Richard Simões. This module is released under the terms of the
 L<GNU Lesser General Public License v. 3.0|http://gnu.org/licenses/lgpl.html>

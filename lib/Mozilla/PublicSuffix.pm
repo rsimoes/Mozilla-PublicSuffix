@@ -5,42 +5,39 @@ use warnings FATAL => "all";
 use utf8;
 use parent "Exporter";
 use Carp;
-use Net::LibIDN qw(idn_to_ascii idn_to_unicode);
+use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
 # VERSION
 # ABSTRACT: Get a domain name's "public suffix" via Mozilla's Public Suffix List
 
-my %rules = qw();
 sub public_suffix {
-	my ($domain) = @_;
+	my $domain = lc $_[0];
+	index($domain, "xn--") != -1
+		and $domain = eval { URI::_idna::decode($_[0]) };
 
-	# Test domain well-formedness:
-	$domain = eval { idn_to_unicode idn_to_ascii lc $domain }
-		or croak("Argument passed is not a well-formed domain name");
+	return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
 
-	my @labels = split /\./, $domain;
-	return exists $rules{$labels[-1]}
-		? do {
-			# Gather matching rules:
-			my @matches = sort {
-				$b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
-				map {
-					my $label = $_ ? join ".", @labels[$_..$#labels] : $domain;
-					exists $rules{$label}
-						? { type => $rules{$label}, label => $label }
-						: () } 0 .. $#labels;
+my %rules = qw();
+sub _find_rule {
+	my ($domain, $rhs) = @_;
+	my $drule = $rules{$domain};
+	return defined $drule       # Test for rule with full domain
+		? $drule eq "w"
+			? undef             # Wildcard rules need an extra level.
+			: $domain
+		: $domain eq $rhs
+			? undef
+			: do {
+				my $rrule = $rules{$rhs};
+				defined $rrule  # Test for rule with right-hand side
+					? $rrule eq "w"
+						? $domain
+						: $rhs
+					: _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
 
-			# Choose prevailing rule and return suffix:
-			my ($exc_rule) = grep { $_->{type} eq "e" } @matches;
-			$exc_rule
-				? $exc_rule->{label}
-				: do {
-					my ($type, $label) = @{$matches[0]}{qw(type label)};
-					$type eq "w"
-						and ($label) = $domain =~ /((?:[^.]+\.)$label)$/;
-					$label ||= undef } }
-		: undef }
+1;
+
 
 1;
