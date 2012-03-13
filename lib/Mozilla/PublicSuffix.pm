@@ -6,17 +6,20 @@ use utf8;
 use parent "Exporter";
 use Carp;
 use URI::_idna;
-
+use Regexp::Common "net";
 our @EXPORT_OK = qw(public_suffix);
 
 # VERSION
-# ABSTRACT: Get a domain name's "public suffix" via Mozilla's Public Suffix List
+# ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
+my $dn_re = qr/^$RE{net}{domain}$/;
 sub public_suffix {
 	my $domain = lc $_[0];
 	index($domain, "xn--") != -1
 		and $domain = eval { URI::_idna::decode($_[0]) };
-
+	# Test domain well-formedness:
+	$domain =~ $dn_re
+		or croak("Argument passed is not a well-formed domain name");
 	return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
 
 my %rules = qw();

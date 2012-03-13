@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Mozilla::PublicSuffix - Get a domain name's public suffix via Mozilla's Public Suffix List
+Mozilla::PublicSuffix - Get a domain name's public suffix via the Mozilla Public Suffix List
 
 =head1 SYNOPSIS
 
@@ -18,8 +18,16 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via Mozilla's Public S
 =head1 DESCRIPTION
 
 This module provides a single function that returns the I<public suffix> of a
-domain name by referencing a parsed copy of Mozilla's Public Suffix List
-(official website at L<http://publicsuffix.org>).
+domain name by referencing a parsed copy of Mozilla's Public Suffix List.
+From the official website at L<http://publicsuffix.org>:
+
+=over
+
+A "public suffix" is one under which Internet users can directly register names.
+Some examples of public suffixes are .com, .co.uk and pvt.k12.wy.us. The Public
+Suffix List is a list of all known public suffixes.
+
+=back
 
 A copy of the official list is bundled with the distribution. As the official
 list continues to be updated, the bundled copy will inevitably fall out of date.
@@ -33,8 +41,9 @@ list and download/use it if one is found.
 
 =item public_suffix($domain)
 
-Exported on request. Simply returns the public suffix of the passed domain, or
-C<undef> if a public suffix is not found.
+Exported on request. Simply returns the public suffix of the passed domain name,
+or C<undef> if the public suffix is not found. Croaks if the passed argument is
+not a well-formed domain name.
 
 =back
 
