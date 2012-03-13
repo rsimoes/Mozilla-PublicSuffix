@@ -5,8 +5,9 @@ use warnings FATAL => "all";
 use utf8;
 use parent "Exporter";
 use Carp;
-use URI::_idna;
 use Regexp::Common "net";
+use URI::_idna;
+
 our @EXPORT_OK = qw(public_suffix);
 
 # VERSION
@@ -39,8 +40,5 @@ sub _find_rule {
 						? $domain
 						: $rhs
 					: _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
-
-1;
-
 
 1;
