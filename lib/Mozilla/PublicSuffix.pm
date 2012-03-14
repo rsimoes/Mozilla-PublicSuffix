@@ -3,8 +3,8 @@ package Mozilla::PublicSuffix;
 use strict;
 use warnings FATAL => "all";
 use utf8;
-use parent "Exporter";
 use Carp;
+use Exporter "import";
 use Regexp::Common "net";
 use URI::_idna;
 
