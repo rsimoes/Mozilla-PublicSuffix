@@ -1,4 +1,5 @@
 {{$NEXT}}
+	- Updated bundled list to latest version.
 
 v0.1.5    2012-03-19 14:57:20 America/Chicago
 	- Explicitly declared configure_requires module not added to core until
