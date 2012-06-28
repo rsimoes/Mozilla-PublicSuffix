@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v0.1.7    2012-06-28 08:46:41 America/Chicago
     - Untabified.
     - Readded excluded author/release tests.
     - Updated bundled list to latest version.
