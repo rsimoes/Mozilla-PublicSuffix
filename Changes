@@ -2,6 +2,7 @@
     - Untabified.
     - Readded excluded author/release tests.
     - Updated bundled list to latest version.
+    - Changed license to MIT.
 
 v0.1.6    2012-03-31 17:28:34 America/Chicago
     - Updated bundled list to latest version.
