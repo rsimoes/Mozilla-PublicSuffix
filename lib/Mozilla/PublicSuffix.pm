@@ -22,11 +22,13 @@ sub public_suffix {
 
     # Test domain well-formedness:
     if ($domain !~ $dn_re) {
-        croak("Argument passed is not a well-formed domain name") }
+        croak("Argument passed is not a well-formed domain name");
+    }
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:
-    return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
+    return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) );
+}
 
 my %rules = qw();
 sub _find_rule {
@@ -38,7 +40,8 @@ sub _find_rule {
             # If a wilcard rule matches the full string; fail early:
             if ($rule eq "w") { undef }
             # All other rule matches mean success:
-            else { $string } }
+            else { $string }
+        }
         # Fail if no match found and the full string and right-hand substring
         # are identical:
         elsif ($string eq $rhs) { undef }
@@ -52,9 +55,15 @@ sub _find_rule {
                 # full string is the public suffix:
                 if ($rrule eq "w") { $string }
                 # Otherwise, it's the substring:
-                else { $rhs } }
+                else { $rhs }
+            }
             # Recurse with the right-hand substring as the full string, and the
             # old substring sans its lowest domain level as the new substring:
-            else { _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } } } }
+            else {
+                _find_rule( $rhs, substr($rhs, index($rhs, ".") + 1 ) );
+            }
+        }
+    }
+}
 
 1;
