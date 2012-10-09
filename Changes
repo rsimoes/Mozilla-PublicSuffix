@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v0.1.9    2012-10-08 21:34:26 America/Chicago
     - Removed dependency on Regexp::Common, as it is relying on a supersceded
       RFC for its domain name regular expression.
     - Updated bundled list to latest version (revision 12b5f4b2f299).
