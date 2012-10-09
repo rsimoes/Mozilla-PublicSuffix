@@ -1,4 +1,5 @@
 {{$NEXT}}
+    - Permitted domains to have a leading digit per RFC 1123.
 
 v0.1.9    2012-10-08 21:34:26 America/Chicago
     - Removed dependency on Regexp::Common, as it is relying on a supersceded
