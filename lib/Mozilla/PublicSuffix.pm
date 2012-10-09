@@ -5,7 +5,6 @@ use warnings FATAL => "all";
 use utf8;
 use Carp;
 use Exporter "import";
-use Regexp::Common "net";
 use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
@@ -13,7 +12,17 @@ our @EXPORT_OK = qw(public_suffix);
 # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
-my $dn_re = qr/^$RE{net}{domain}$/;
+my $dn_re = do {
+    my $alf = "[[:alpha:]]";
+    my $aln = "[[:alnum:]]";
+    my $anh = "[[:alnum:]-]";
+    my $re_str = join(
+        "",
+        "(?:$alf(?:(?:$anh){0,61}$aln)?",
+        "(?:\\.$alf(?:(?:$anh){0,61}$aln)?)*)"
+    );
+    qr/^$re_str$/;
+};
 sub public_suffix {
     # Decode domains in punycode form:
     my $domain = index($_[0], "xn--") == -1

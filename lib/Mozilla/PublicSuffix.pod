@@ -6,14 +6,14 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via the Mozilla Public
 
 =head1 SYNOPSIS
 
-	use feature "say";
-	use Mozilla::PublicSuffix "public_suffix";
+    use feature "say";
+    use Mozilla::PublicSuffix "public_suffix";
 
-	say public_suffix("org");       # "org"
-	say public_suffix("perl.org");  # "org"
-	say public_suffix("perl.orc");  # undef
-	say public_suffix("ga.gov.au"); # "gov.au"
-	say public_suffix("ga.goo.au"); # undef
+    say public_suffix("org");       # "org"
+    say public_suffix("perl.org");  # "org"
+    say public_suffix("perl.orc");  # undef
+    say public_suffix("ga.gov.au"); # "gov.au"
+    say public_suffix("ga.goo.au"); # undef
 
 =head1 DESCRIPTION
 
