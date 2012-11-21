@@ -10,7 +10,7 @@ use Tie::File;
 
 my $builder = Module::Build->new(
     dist_name => "Mozilla-PublicSuffix",
-    license => "LGPL_3_0",
+    license => "MIT",
     dist_abstract => q(Get a domain name's public suffix via Mozilla's Public Suffix List),
     dist_author => q"Richard Simões <rsimoes AT cpan DOT org>",
     dist_version_from => "lib/Mozilla/PublicSuffix.pm",
