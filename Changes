@@ -1,4 +1,5 @@
 {{$NEXT}}
+    - Updated bundled list to latest version.
 
 v0.1.10   2012-10-08 21:39:28 America/Chicago
     - Permitted domains to have a leading digit per RFC 1123.
