@@ -1,4 +1,7 @@
 {{$NEXT}}
+    - Changed to return undef (instead of croaking) if a passed domain name is
+      not well-formed.
+    - Updated bundled list to latest version (revision 3af9909a49e4).
 
 v0.1.11   2013-01-16 17:05:57 America/Chicago
     - Updated bundled list to latest version.

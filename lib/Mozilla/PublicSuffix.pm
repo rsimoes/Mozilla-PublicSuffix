@@ -3,7 +3,6 @@ package Mozilla::PublicSuffix;
 use strict;
 use warnings FATAL => "all";
 use utf8;
-use Carp;
 use Exporter "import";
 use URI::_idna;
 
@@ -24,15 +23,16 @@ my $dn_re = do {
     qr/^$re_str$/;
 };
 sub public_suffix {
-    # Decode domains in punycode form:
-    my $domain = index($_[0], "xn--") == -1
-        ? lc $_[0]
-        : eval { lc URI::_idna::decode($_[0]) };
 
-    # Test domain well-formedness:
-    if ($domain !~ $dn_re) {
-        croak("Argument passed is not a well-formed domain name");
-    }
+    # Decode domains in punycode form:
+    my $domain = defined($_[0]) && ref(\$_[0]) eq "SCALAR"
+        ? index($_[0], "xn--") == -1
+            ? lc $_[0]
+            : eval { lc URI::_idna::decode($_[0]) }
+        : "";
+
+    # Return early if domain is not well-formed:
+    return undef unless $domain =~ $dn_re;
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:

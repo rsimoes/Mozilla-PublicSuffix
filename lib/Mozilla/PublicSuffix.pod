@@ -42,8 +42,7 @@ list and download/use it if one is found.
 =item public_suffix($domain)
 
 Exported on request. Simply returns the public suffix of the passed domain name,
-or C<undef> if the public suffix is not found. Croaks if the passed argument is
-not a well-formed domain name.
+or C<undef> if the public suffix is not found.
 
 =back
 
@@ -65,6 +64,6 @@ Richard Simões C<< <rsimoes AT cpan DOT org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright © 2012 Richard Simões. This module is released under the terms of the
+Copyright © 2013 Richard Simões. This module is released under the terms of the
 B<MIT License> and may be modified and/or redistributed under the same or any
 compatible license.
