@@ -19,23 +19,21 @@ my $builder = Module::Build->new(
 );
 
 my $DAT = "effective_tld_names.dat";
-if ( -M $DAT > 30 ) {
-    my $get_new_list = $builder->y_n(
-        "Check for a new version of the Public Suffix List?", "N"
-    );
-    if ($get_new_list) {
-        my $http = HTTP::Tiny->new( timeout => 6 );
-        my $list_uri = "http://mxr.mozilla.org"
-                     . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
-        my %options = (
-            headers => {
-                "If-Modified-Since" => "Wed, 22 Feb 2012 16:00:41 GMT"
-            }
-        );
-        my $response = $http->get( $list_uri, \%options );
-        if ( $response->{status} == 200 ) {
-            IO::File->new($DAT, "w")->print( $response->{content} );
+my $get_new_list = $builder->y_n(
+    "Check for a new version of the Public Suffix List?", "N"
+);
+if ($get_new_list) {
+    my $http = HTTP::Tiny->new( timeout => 6 );
+    my $list_uri = "http://mxr.mozilla.org"
+                 . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
+    my %options = (
+        headers => {
+            "If-Modified-Since" => "Mon, 18 Feb 2013 20:02:07 GMT"
         }
+    );
+    my $response = $http->get( $list_uri, \%options );
+    if ( $response->{status} == 200 ) {
+        IO::File->new($DAT, "w")->print( $response->{content} );
     }
 }
 
