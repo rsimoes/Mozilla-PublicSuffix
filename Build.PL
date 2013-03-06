@@ -47,7 +47,7 @@ my $rules = join " ", map {
 } IO::File->new($dat_file)->getlines;
 
 tie my @pm, "Tie::File", "lib/Mozilla/PublicSuffix.pm";
-for (@pm) { s/(my %rules = qw\()/$1$rules/ and last }
+for (@pm) { s/(my %rules = qw\()\)/$1$rules)/ and last }
 untie @pm;
 
 $builder->create_build_script;
