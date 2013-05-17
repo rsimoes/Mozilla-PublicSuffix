@@ -4,9 +4,11 @@ use strict;
 use warnings FATAL => "all";
 use utf8;
 use open ":encoding(UTF-8)";
+use Carp qw(croak);
 use HTTP::Tiny;
 use Module::Build;
 use Tie::File;
+use URI;
 
 my $builder = Module::Build->new(
     dist_name => "Mozilla-PublicSuffix",
@@ -24,16 +26,21 @@ my $get_new_list = $builder->y_n(
 );
 if ($get_new_list) {
     my $http = HTTP::Tiny->new( timeout => 6 );
-    my $list_uri = "http://mxr.mozilla.org"
-                 . "/mozilla-central/source/netwerk/dns/$dat_file?raw=1";
+    my $list_uri = URI->new(
+        "http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/$dat_file"
+    );
+    $list_uri->query_form({ raw => 1 });
     my %options = (
         headers => {
             "If-Modified-Since" => "Fri, 17 May 2013 00:00:00 UTC"
         }
     );
-    my $response = $http->get( $list_uri, \%options );
+    my $response = $http->get($list_uri, \%options);
     if ( $response->{status} == 200 ) {
-        IO::File->new($dat_file, "w")->print( $response->{content} );
+        IO::File->new($dat_file, "w")->print($response->{content});
+    }
+    elsif ( $response->{status} != 304 ) {
+        croak "Unable to download public suffix list.";
     }
 }
 
