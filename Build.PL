@@ -28,7 +28,7 @@ if ($get_new_list) {
                  . "/mozilla-central/source/netwerk/dns/$dat_file?raw=1";
     my %options = (
         headers => {
-            "If-Modified-Since" => "Mon, 18 Feb 2013 20:02:07 GMT"
+            "If-Modified-Since" => "Fri, 17 May 2013 00:00:00 UTC"
         }
     );
     my $response = $http->get( $list_uri, \%options );
