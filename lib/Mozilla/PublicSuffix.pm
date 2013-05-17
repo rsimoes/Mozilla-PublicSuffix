@@ -32,7 +32,7 @@ sub public_suffix {
         : "";
 
     # Return early if domain is not well-formed:
-    return undef unless $domain =~ $dn_re;
+    return unless $domain =~ $dn_re;
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:
@@ -47,13 +47,13 @@ sub _find_rule {
         # Test for rule match with full string:
         if (defined $rule) {
             # If a wilcard rule matches the full string; fail early:
-            if ($rule eq "w") { undef }
+            if ($rule eq "w") { () } # return undef in scalar context
             # All other rule matches mean success:
             else { $string }
         }
         # Fail if no match found and the full string and right-hand substring
         # are identical:
-        elsif ($string eq $rhs) { undef }
+        elsif ($string eq $rhs) { () } # return undef in scalar context
         # No match found with the full string, but there are more levels of the
         # domain to check:
         else {
