@@ -25,7 +25,7 @@ my $dn_re = do {
 sub public_suffix {
 
     # Decode domains in punycode form:
-    my $domain = defined($_[0]) && ref(\$_[0]) eq "SCALAR"
+    my $domain = defined($_[0]) && ref($_[0]) eq ""
         ? index($_[0], "xn--") == -1
             ? lc $_[0]
             : eval { lc URI::_idna::decode($_[0]) }
