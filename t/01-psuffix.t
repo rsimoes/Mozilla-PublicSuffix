@@ -2,7 +2,7 @@
 
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 64;
+use Test::More tests => 65;
 use Mozilla::PublicSuffix "public_suffix";
 
 # obviously invalid input.
@@ -60,6 +60,7 @@ is public_suffix("kyoto.jp"), "kyoto.jp";
 is public_suffix("c.kyoto.jp"), "kyoto.jp";
 is public_suffix("b.c.kyoto.jp"), "kyoto.jp";
 is public_suffix("a.b.c.kyoto.jp"), "kyoto.jp";
+is public_suffix("ayabe.kyoto.jp"), "ayabe.kyoto.jp";
 is public_suffix("test.kobe.jp"), "test.kobe.jp";     # Wildcard rule.
 is public_suffix("www.test.kobe.jp"), "test.kobe.jp"; # Wildcard rule.
 is public_suffix("city.kobe.jp"), "kobe.jp";          # Exception rule.
