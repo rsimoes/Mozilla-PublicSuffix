@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v0.1.15   2013-05-18 19:12:39 CST6CDT
     - Fixed a bug that was yielding an incorrect result for some exception rules
       (especially concerning jp and om).
 
