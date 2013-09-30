@@ -1,4 +1,6 @@
 {{$NEXT}}
+    - Updated bundled list to latest version (revision 06c405ba54b3).
+    - Updated tests to meet requirements of new list (yaneti++).
 
 v0.1.15   2013-05-18 19:12:39 America/Chicago
     - Fixed a bug that was yielding incorrect results for some exception rules
