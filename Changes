@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v0.1.17   2014-01-28 16:26:34-06:00 America/Chicago
     - Fixed another failure to match domain names according to RFC 1123
       (contributed by mbroadhead on GitHub).
     - Updated bundled list to latest version (revision a09fae6633f3).
