@@ -18,7 +18,7 @@ my $dn_re = do {
     my $re_str = join(
         "",
         "(?:$aln(?:(?:$anh){0,61}$aln)?",
-        "(?:\\.$alf(?:(?:$anh){0,61}$aln)?)*)"
+        "(?:\\.$aln(?:(?:$anh){0,61}$aln)?)*)"
     );
     qr/^$re_str$/;
 };
