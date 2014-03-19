@@ -1,5 +1,8 @@
 {{$NEXT}}
+    - Fixed issue preventing suffixes with characters outside the suffix list
+      from being added to the rule list.
     - Corrected some factual errors in the POD.
+    - Updated bundled list to latest version (revision ba86f988fb17).
 
 v0.1.17   2014-01-28 16:26:34-06:00 America/Chicago
     - Fixed another failure to match domain names according to RFC 1123
