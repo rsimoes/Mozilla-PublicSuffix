@@ -1,5 +1,7 @@
 {{$NEXT}}
-    - Fixed issue preventing suffixes with characters outside the suffix list
+
+v0.1.18   2014-03-19 14:24:53-05:00 America/Chicago
+    - Fixed issue preventing suffixes with characters outside the ASCII range
       from being added to the rule list.
     - Corrected some factual errors in the POD.
     - Updated bundled list to latest version (revision ba86f988fb17).
