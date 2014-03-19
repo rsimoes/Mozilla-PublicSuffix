@@ -5,7 +5,7 @@ use warnings FATAL => 'all';
 use utf8;
 use open qw(:std :encoding(UTF-8));
 
-use Test::More tests => 68;
+use Test::More tests => 69;
 use Mozilla::PublicSuffix qw(public_suffix);
 
 
@@ -98,5 +98,6 @@ is public_suffix('k12.ak.us'), 'k12.ak.us';
 is public_suffix('test.k12.ak.us'), 'k12.ak.us';
 is public_suffix('www.test.k12.ak.us'), 'k12.ak.us';
 
-# Unicode domain:
+# Domains and gTLDs with characters outside the ASCII range:
 is public_suffix('test.敎育.hk'), '敎育.hk';
+is public_suffix('ਭਾਰਤ.ਭਾਰਤ'), 'ਭਾਰਤ';
