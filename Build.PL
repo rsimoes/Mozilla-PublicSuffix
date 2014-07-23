@@ -7,6 +7,7 @@ use open ":encoding(UTF-8)";
 use Carp qw(croak);
 use HTTP::Tiny;
 use Module::Build;
+use IO::File;
 use Tie::File;
 use URI;
 
