@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v0.1.19   2014-07-23 10:54:13-05:00 America/Chicago
     - Explicitly added IO::File build dependency (thanks whillipmoore).
     - Updated bundled list to latest version (revision 131f3403a484).
 
