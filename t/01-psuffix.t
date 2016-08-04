@@ -57,10 +57,10 @@ is public_suffix('a.b.example.uk.com'), 'uk.com';
 is public_suffix('test.ac'), 'ac';
 
 # TLD with only one (wildcard) rule:
-is public_suffix('cy'), undef;
-is public_suffix('c.cy'), 'c.cy';
-is public_suffix('b.c.cy'), 'c.cy';
-is public_suffix('a.b.c.cy'), 'c.cy';
+is public_suffix('il'), undef;
+is public_suffix('c.il'), 'c.il';
+is public_suffix('b.c.il'), 'c.il';
+is public_suffix('a.b.c.il'), 'c.il';
 
 # More complex suffixes:
 is public_suffix('jp'), 'jp';
