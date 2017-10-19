@@ -28,7 +28,7 @@ my $get_new_list = $builder->y_n(
 if ($get_new_list) {
     my $http = HTTP::Tiny->new( timeout => 6 );
     my $list_uri = URI->new(
-        "http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/$dat_file"
+        "https://publicsuffix.org/list/$dat_file"
     );
     $list_uri->query_form({ raw => 1 });
     my %options = (
