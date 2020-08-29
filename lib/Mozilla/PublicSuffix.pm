@@ -93,4 +93,17 @@ sub _find_rule {
     }
 }
 
+sub _parse_file {
+    my $rulesref = shift;
+    my $dat_file = shift;
+    open DAT ,"<:encoding(UTF-8)", "$dat_file";
+    foreach (<DAT>) {
+        s/\s//g;
+        if    ( s/^!// )        { $rulesref->{$_} = "e" }  # exception rule
+        elsif ( s/^\*\.// )     { $rulesref->{$_} = "w" }  # wildcard rule
+        elsif ( /^[\p{Word}]/ ) { $rulesref->{$_} = "i" }  # identity rule
+    }
+    close DAT;
+}
+
 1;

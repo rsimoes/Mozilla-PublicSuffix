@@ -22,6 +22,7 @@ my $builder = Module::Build->new(
 );
 
 my $dat_file = "effective_tld_names.dat";
+my $system_dat_file = $builder->config('system_publicsuffix_list');
 my $get_new_list = $builder->y_n(
     "Check for a new version of the Public Suffix List?", "N"
 );
@@ -55,7 +56,13 @@ my $rules = join " ", map {
 } IO::File->new($dat_file)->getlines;
 
 tie my @pm, "Tie::File", "lib/Mozilla/PublicSuffix.pm";
-for (@pm) { s/(my %rules = qw\()\)/$1$rules)/ and last }
+for (@pm) {
+	if ($system_dat_file) {
+		s/(my %rules = qw\(\);)/$1\n_parse_file(\\%rules,\"$system_dat_file\");/ and last
+	} else {
+		s/(my %rules = qw\()\)/$1$rules)/ and last
+	}
+}
 untie @pm;
 
 $builder->create_build_script;
